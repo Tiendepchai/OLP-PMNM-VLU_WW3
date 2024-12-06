@@ -1,0 +1,100 @@
+{
+  "appIsExample": false,
+  "appLayout": {
+    "type": "MOBILE"
+  },
+  "applicationDetail": {
+    "appPositioning": {
+      "type": "FIXED"
+    },
+    "navigationSetting": {
+      "colorStyle": "light",
+      "logoAssetId": "",
+      "logoConfiguration": "logoOnly",
+      "navStyle": "sidebar",
+      "orientation": "side",
+      "position": "static",
+      "showNavbar": true,
+      "showSignIn": true
+    },
+    "themeSetting": {
+      "appMaxWidth": "LARGE",
+      "density": 1.0,
+      "sizing": 1.0
+    }
+  },
+  "applicationVersion": 2,
+  "collapseInvisibleWidgets": true,
+  "color": "#C2DAF0",
+  "evaluationVersion": 2,
+  "icon": "chat",
+  "pages": [
+    {
+      "id": "Vị Trí An Toàn",
+      "isDefault": false
+    },
+    {
+      "id": "Đăng Ký",
+      "isDefault": false
+    },
+    {
+      "id": "Đăng Nhập",
+      "isDefault": false
+    },
+    {
+      "id": "Tin Tức",
+      "isDefault": false
+    },
+    {
+      "id": "Thông Tin Users",
+      "isDefault": false
+    },
+    {
+      "id": "Thông Tin Cứu Trợ",
+      "isDefault": false
+    },
+    {
+      "id": "Thông Báo Nguy Hiểm",
+      "isDefault": false
+    },
+    {
+      "id": "SOS",
+      "isDefault": false
+    },
+    {
+      "id": "Trang Chủ",
+      "isDefault": true
+    },
+    {
+      "id": "Yêu cầu cứu trợ",
+      "isDefault": false
+    },
+    {
+      "id": "Yêu cầu khẩn cấp",
+      "isDefault": false
+    }
+  ],
+  "unpublishedAppLayout": {
+    "type": "MOBILE"
+  },
+  "unpublishedApplicationDetail": {
+    "appPositioning": {
+      "type": "FIXED"
+    },
+    "navigationSetting": {
+      "colorStyle": "light",
+      "logoAssetId": "",
+      "logoConfiguration": "logoOnly",
+      "navStyle": "sidebar",
+      "orientation": "side",
+      "position": "static",
+      "showNavbar": true,
+      "showSignIn": true
+    },
+    "themeSetting": {
+      "appMaxWidth": "LARGE",
+      "density": 1.0,
+      "sizing": 1.0
+    }
+  }
+}

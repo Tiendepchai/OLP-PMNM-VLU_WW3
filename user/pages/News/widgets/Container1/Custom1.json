@@ -1,0 +1,61 @@
+{
+  "backgroundColor": "#86efac",
+  "borderColor": "#f4f4f5",
+  "borderRadius": "0px",
+  "borderWidth": "",
+  "bottomRow": 11,
+  "boxShadow": "none",
+  "defaultModel": "{\n  \"tips\": [\n    \"Pass data to this widget in the default model field\",\n    \"Access data in the javascript file using the appsmith.model variable\",\n    \"Create events in the widget and trigger them in the javascript file using appsmith.triggerEvent('eventName')\",\n    \"Access data in CSS as var(--appsmith-model-{property-name})\"\n  ]\n}",
+  "dynamicBindingPathList": [
+    {
+      "key": "theme"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicTriggerPathList": [
+    {
+      "key": "onResetClick"
+    }
+  ],
+  "events": [
+    "onResetClick"
+  ],
+  "isCanvas": false,
+  "isLoading": false,
+  "isSearchWildcard": true,
+  "isVisible": true,
+  "key": "wt9cnrk0s4",
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "mobileBottomRow": 39,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 17,
+  "mobileTopRow": 9,
+  "needsErrorInfo": false,
+  "onResetClick": "{{showAlert('Successfully reset!!', '');}}",
+  "originalBottomRow": 16,
+  "originalTopRow": 10,
+  "parentColumnSpace": 6.3173828125,
+  "parentId": "y64evmbd1r",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "rightColumn": 64,
+  "shouldScrollContents": true,
+  "srcDoc": {
+    "css": "",
+    "html": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>Bootstrap demo</title>\n    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH\" crossorigin=\"anonymous\">\n    <style>\n      /* Loại bỏ cả thanh cuộn ngang và dọc */\n      body, html {\n        overflow: hidden;\n      }\n    </style>\n  </head>\n  <body>\n    <div class=\"alert alert-white\" role=\"alert\">\n      <marquee>\n\t\t\t\tDự báo bão: <b class=\"text-danger\">Ngày 6 tiến vào đất liền </b>\n      </marquee>\n    </div> \n    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz\" crossorigin=\"anonymous\"></script>\n  </body>\n</html>\n",
+    "js": ""
+  },
+  "theme": "{{appsmith.theme}}",
+  "topRow": 5,
+  "type": "CUSTOM_WIDGET",
+  "uncompiledSrcDoc": {
+    "css": "",
+    "html": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>Bootstrap demo</title>\n    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH\" crossorigin=\"anonymous\">\n    <style>\n      /* Loại bỏ cả thanh cuộn ngang và dọc */\n      body, html {\n        overflow: hidden;\n      }\n    </style>\n  </head>\n  <body>\n    <div class=\"alert alert-white\" role=\"alert\">\n      <marquee>\n\t\t\t\tDự báo bão: <b class=\"text-danger\">Ngày 6 tiến vào đất liền </b>\n      </marquee>\n    </div> \n    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz\" crossorigin=\"anonymous\"></script>\n  </body>\n</html>\n",
+    "js": ""
+  },
+  "version": 1,
+  "widgetId": "o6lp3x4heh",
+  "widgetName": "Custom1"
+}

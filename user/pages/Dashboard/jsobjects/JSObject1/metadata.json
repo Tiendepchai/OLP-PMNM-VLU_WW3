@@ -1,0 +1,16 @@
+{
+  "gitSyncId": "674ac487458c5653a9969d30_98c5ccab-df1b-4b49-ad9c-13179180be88",
+  "id": "Trang Chủ_JSObject1",
+  "unpublishedCollection": {
+    "name": "JSObject1",
+    "pageId": "Trang Chủ",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": [
+      {
+        "name": "defaultTab",
+        "value": "'vitrihientai'"
+      }
+    ]
+  }
+}

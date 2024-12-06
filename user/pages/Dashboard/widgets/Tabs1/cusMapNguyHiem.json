@@ -1,0 +1,67 @@
+{
+  "backgroundColor": "#FFFFFF",
+  "borderColor": "#E0DEDE",
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "borderWidth": "1",
+  "bottomRow": 44,
+  "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
+  "defaultModel": "{{\n{\"map\" : getVungNguyHiem.data,\n location: JSObject1.getCurrentLoction.data}\n}}",
+  "dynamicBindingPathList": [
+    {
+      "key": "theme"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "boxShadow"
+    },
+    {
+      "key": "defaultModel"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicTriggerPathList": [
+    {
+      "key": "onResetClick"
+    }
+  ],
+  "events": [
+    "onResetClick"
+  ],
+  "isCanvas": false,
+  "isLoading": false,
+  "isSearchWildcard": true,
+  "isVisible": true,
+  "key": "aoyijemysi",
+  "leftColumn": 0,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "mobileBottomRow": 34,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 13,
+  "mobileTopRow": 4,
+  "needsErrorInfo": false,
+  "onResetClick": "{{showAlert('Successfully reset!!', '');}}",
+  "parentColumnSpace": 6.53125,
+  "parentId": "pkizoj00sb",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "rightColumn": 64,
+  "srcDoc": {
+    "css": "#map {\n  height: 500px;\n}\n\n/* DTU Custom Popup Styles */\n.custom-popup .leaflet-popup-content-wrapper {\n  background: #fff;\n  border-radius: 8px;\n  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.2);\n}\n\n.custom-popup .leaflet-popup-content {\n  margin: 0;\n  padding: 0;\n}\n\n.popup-content {\n  min-width: 200px;\n}\n\n.popup-title {\n  background: #003C71;\n  color: white;\n  margin: 0;\n  padding: 10px 15px;\n  font-size: 16px;\n  border-radius: 8px 8px 0 0;\n}\n\n.popup-body {\n  padding: 15px;\n  color: #333;\n  font-size: 14px;\n  line-height: 1.4;\n}\n\n.popup-footer {\n  padding: 8px 15px;\n  background: #f5f5f5;\n  color: #666;\n  font-size: 12px;\n  border-radius: 0 0 8px 8px;\n  text-align: right;\n}\n\n.custom-popup .leaflet-popup-tip {\n  background: #003C71;\n}",
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n\t<head>\n\t\t<meta charset=\"UTF-8\">\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\t\t<title>Vue Inline Styles</title>\n\t\t<!-- Bootstrap -->\n\t\t<link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.9.4/dist/leaflet.css\" />\n\t\t<link\n\n\t\t\t\t\thref=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\"\n\t\t\t\t\trel=\"stylesheet\"\n\t\t\t\t\tintegrity=\"sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH\"\n\t\t\t\t\tcrossorigin=\"anonymous\"\n\t\t\t\t\t/>\n\t\t<!-- FontAwesome -->\n\t\t<link\n\t\t\t\t\trel=\"stylesheet\"\n\t\t\t\t\thref=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css\"\n\t\t\t\t\tintegrity=\"sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==\"\n\t\t\t\t\tcrossorigin=\"anonymous\"\n\t\t\t\t\treferrerpolicy=\"no-referrer\"\n\t\t\t\t\t/>\n\t</head>\n\t<body>\n\t\t<div id=\"app\">\n\t\t\t<div id=\"map\" class=\"map\"></div>\n\t\t</div>\n\t\t<!-- Vue.js -->\n\t\t<script src=\"https://unpkg.com/vue@2.6.14/dist/vue.min.js\"></script>\n\t\t<script src=\"https://unpkg.com/leaflet@1.9.4/dist/leaflet.js\"></script>\n\t\t<script src=\"https://cdn.jsdelivr.net/npm/dtuappsmithmap@2.2.16/dist/index.umd.js\"></script>\n\t\t<script>\n\t\t\tfunction initMap() {\n\t\t\t\treturn n\n\t\t\t}\n\t\t</script>\n\t</body>\n\n</html>",
+    "js": "appsmith.onReady(() => {\n  new Vue({\n    el: \"#app\",\n    data() {\n      return {\n        mapInstance: null,\n        position: appsmith.model.location,\n        // Vị trí hiện tại\n        locationsList: appsmith.model.map // Danh sách các địa điểm\n      };\n    },\n    async mounted() {\n      this.initMap();\n      this.hienThiDanhSachDiaChi();\n    },\n    methods: {\n      // Hàm khởi tạo bản đồ\n      initMap() {\n        this.mapInstance = new DTUAppsmithMap(\"map\", {\n          center: [this.position.lat, this.position.lng],\n          zoom: 16\n        });\n        this.mapInstance.capNhatViTriHienTai(this.position.lat, this.position.lng);\n\n        // Duyệt qua từng địa điểm và khoanh vùng với màu sắc dựa vào \"muc_do\"\n        this.locationsList.forEach((value, index) => {\n          var khoang_cach = this.mapInstance.tinhKhoangCachDenDiem(value.toa_do.lat, value.toa_do.lng);\n          value.content = \"Cách \" + khoang_cach + \"km so với vị trí hiện tại\";\n\n          // // Vẽ đường đi\n          // this.mapInstance.veDuongDi(this.position.lat, this.position.lng, value.toa_do.lat, value.toa_do.lng);\n          // \n          // Tạo địa điểm\n          // this.mapInstance.taoDiaDiem(value.toa_do.lat, value.toa_do.lng, value.ten_vung, value.mo_ta);\n\n          // Dựa vào mức độ để thay đổi màu sắc của vùng tròn\n          this.drawCircleBasedOnLevel(value);\n        });\n      },\n      // Hàm khoanh vùng và thay đổi màu sắc của vùng tròn dựa vào \"muc_do\"\n      drawCircleBasedOnLevel(location) {\n        let color = this.getColorByLevel(location.muc_do); // Lấy màu sắc theo mức độ\n        let radius = 1000; // Bán kính của vùng tròn (500m)\n\n        // Vẽ vùng tròn với màu sắc tương ứng\n        this.mapInstance.veVungTron(location.toa_do.lat, location.toa_do.lng, radius, color);\n      },\n      // Hàm xác định màu sắc dựa vào mức độ\n      getColorByLevel(muc_do) {\n        // Màu sắc dựa vào mức độ (muc_do)\n        if (muc_do <= 3) {\n          return \"#FF0000\"; // Màu đỏ cho mức độ thấp\n        } else if (muc_do <= 6) {\n          return \"#FFFF00\"; // Màu vàng cho mức độ trung bình\n        } else {\n          return \"#00FF00\"; // Màu xanh lá cho mức độ cao\n        }\n      },\n      // Các phương thức khác\n      reset() {\n        // Reset currentIndex và kích hoạt sự kiện \"onReset\"\n        this.currentIndex = 0;\n        appsmith.triggerEvent(\"onReset\");\n      },\n      showPosition(position) {\n        console.log(position);\n      }\n    }\n  });\n});"
+  },
+  "theme": "{{appsmith.theme}}",
+  "topRow": 0,
+  "type": "CUSTOM_WIDGET",
+  "uncompiledSrcDoc": {
+    "css": "#map {\n\theight: 500px\n}\n\n/* DTU Custom Popup Styles */\n.custom-popup .leaflet-popup-content-wrapper {\n\tbackground: #fff;\n\tborder-radius: 8px;\n\tbox-shadow: 0 3px 14px rgba(0,0,0,0.2);\n}\n\n.custom-popup .leaflet-popup-content {\n\tmargin: 0;\n\tpadding: 0;\n}\n\n.popup-content {\n\tmin-width: 200px;\n}\n\n.popup-title {\n\tbackground: #003C71;\n\tcolor: white;\n\tmargin: 0;\n\tpadding: 10px 15px;\n\tfont-size: 16px;\n\tborder-radius: 8px 8px 0 0;\n}\n\n.popup-body {\n\tpadding: 15px;\n\tcolor: #333;\n\tfont-size: 14px;\n\tline-height: 1.4;\n}\n\n.popup-footer {\n\tpadding: 8px 15px;\n\tbackground: #f5f5f5;\n\tcolor: #666;\n\tfont-size: 12px;\n\tborder-radius: 0 0 8px 8px;\n\ttext-align: right;\n}\n\n.custom-popup .leaflet-popup-tip {\n\tbackground: #003C71;\n}",
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n\t<head>\n\t\t<meta charset=\"UTF-8\">\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\t\t<title>Vue Inline Styles</title>\n\t\t<!-- Bootstrap -->\n\t\t<link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.9.4/dist/leaflet.css\" />\n\t\t<link\n\n\t\t\t\t\thref=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\"\n\t\t\t\t\trel=\"stylesheet\"\n\t\t\t\t\tintegrity=\"sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH\"\n\t\t\t\t\tcrossorigin=\"anonymous\"\n\t\t\t\t\t/>\n\t\t<!-- FontAwesome -->\n\t\t<link\n\t\t\t\t\trel=\"stylesheet\"\n\t\t\t\t\thref=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css\"\n\t\t\t\t\tintegrity=\"sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==\"\n\t\t\t\t\tcrossorigin=\"anonymous\"\n\t\t\t\t\treferrerpolicy=\"no-referrer\"\n\t\t\t\t\t/>\n\t</head>\n\t<body>\n\t\t<div id=\"app\">\n\t\t\t<div id=\"map\" class=\"map\"></div>\n\t\t</div>\n\t\t<!-- Vue.js -->\n\t\t<script src=\"https://unpkg.com/vue@2.6.14/dist/vue.min.js\"></script>\n\t\t<script src=\"https://unpkg.com/leaflet@1.9.4/dist/leaflet.js\"></script>\n\t\t<script src=\"https://cdn.jsdelivr.net/npm/dtuappsmithmap@2.2.16/dist/index.umd.js\"></script>\n\t\t<script>\n\t\t\tfunction initMap() {\n\t\t\t\treturn n\n\t\t\t}\n\t\t</script>\n\t</body>\n\n</html>",
+    "js": "appsmith.onReady(() => {\n\tnew Vue({\n\t\tel: \"#app\",\n\t\tdata() {\n\t\t\treturn {\n\t\t\t\tmapInstance: null,\n\t\t\t\tposition: appsmith.model.location, // Vị trí hiện tại\n\t\t\t\tlocationsList: appsmith.model.map // Danh sách các địa điểm\n\t\t\t};\n\t\t},\n\t\tasync mounted() {\n\t\t\tthis.initMap();\n\t\t\tthis.hienThiDanhSachDiaChi();\n\t\t},\n\t\tmethods: {\n\t\t\t// Hàm khởi tạo bản đồ\n\t\t\tinitMap() {\n\t\t\t\tthis.mapInstance = new DTUAppsmithMap(\"map\", {\n\t\t\t\t\tcenter: [this.position.lat, this.position.lng],\n\t\t\t\t\tzoom: 16,\n\t\t\t\t});\n\n\t\t\t\tthis.mapInstance.capNhatViTriHienTai(this.position.lat, this.position.lng);\n\n\t\t\t\t// Duyệt qua từng địa điểm và khoanh vùng với màu sắc dựa vào \"muc_do\"\n\t\t\t\tthis.locationsList.forEach((value, index) => {\n\t\t\t\t\tvar khoang_cach = this.mapInstance.tinhKhoangCachDenDiem(value.toa_do.lat, value.toa_do.lng);\n\t\t\t\t\tvalue.content = \"Cách \" + khoang_cach + \"km so với vị trí hiện tại\";\n\n\t\t\t\t\t// // Vẽ đường đi\n\t\t\t\t\t// this.mapInstance.veDuongDi(this.position.lat, this.position.lng, value.toa_do.lat, value.toa_do.lng);\n\t\t\t\t\t// \n\t\t\t\t\t// Tạo địa điểm\n\t\t\t\t\t// this.mapInstance.taoDiaDiem(value.toa_do.lat, value.toa_do.lng, value.ten_vung, value.mo_ta);\n\n\t\t\t\t\t// Dựa vào mức độ để thay đổi màu sắc của vùng tròn\n\t\t\t\t\tthis.drawCircleBasedOnLevel(value);\n\t\t\t\t});\n\t\t\t},\n\n\t\t\t// Hàm khoanh vùng và thay đổi màu sắc của vùng tròn dựa vào \"muc_do\"\n\t\t\tdrawCircleBasedOnLevel(location) {\n\t\t\t\tlet color = this.getColorByLevel(location.muc_do); // Lấy màu sắc theo mức độ\n\t\t\t\tlet radius = 1000; // Bán kính của vùng tròn (500m)\n\n\t\t\t\t// Vẽ vùng tròn với màu sắc tương ứng\n\t\t\t\tthis.mapInstance.veVungTron(location.toa_do.lat, location.toa_do.lng, radius, color);\n\t\t\t},\n\n\t\t\t// Hàm xác định màu sắc dựa vào mức độ\n\t\t\tgetColorByLevel(muc_do) {\n\t\t\t\t// Màu sắc dựa vào mức độ (muc_do)\n\t\t\t\tif (muc_do <= 3) {\n\t\t\t\t\treturn \"#FF0000\"; // Màu đỏ cho mức độ thấp\n\t\t\t\t} else if (muc_do <= 6) {\n\t\t\t\t\treturn \"#FFFF00\"; // Màu vàng cho mức độ trung bình\n\t\t\t\t} else {\n\t\t\t\t\treturn \"#00FF00\"; // Màu xanh lá cho mức độ cao\n\t\t\t\t}\n\t\t\t},\n\t\t\t\n\t\t\t// Các phương thức khác\n\t\t\treset() {\n\t\t\t\t// Reset currentIndex và kích hoạt sự kiện \"onReset\"\n\t\t\t\tthis.currentIndex = 0;\n\t\t\t\tappsmith.triggerEvent(\"onReset\");\n\t\t\t},\n\t\t\tshowPosition(position) {\n\t\t\t\tconsole.log(position)\n\t\t\t},\n\t\t}\n\t});\n});\n"
+  },
+  "version": 1,
+  "widgetId": "t9ybxnscm8",
+  "widgetName": "cusMapNguyHiem"
+}
