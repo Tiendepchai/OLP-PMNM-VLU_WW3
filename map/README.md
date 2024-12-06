@@ -51,11 +51,6 @@ npm publish
 ---
 
 ### 4. POST-PUBLISH CHECKS
-- Verify the package on npm:  
-  [https://www.npmjs.com/package/dtuappsmithmap](https://www.npmjs.com/package/dtuappsmithmap)  
-- Check the CDN URL:  
-  [https://cdn.jsdelivr.net/npm/dtuappsmithmap@2.1.4/dist/index.umd.js](https://cdn.jsdelivr.net/npm/dtuappsmithmap@2.1.4/dist/index.umd.js)  
-- Test in Appsmith with the new URL.  
 
 ---
 
