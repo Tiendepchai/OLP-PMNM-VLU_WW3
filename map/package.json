@@ -1,5 +1,5 @@
 {
-  "name": "LCDP-Map",
+  "name": "LCDP_Map",
   "version": "2.1.8",
   "description": "A Leaflet wrapper library for Appsmith with custom VLU functions",
   "main": "dist/index.umd.js",
@@ -11,7 +11,6 @@
     "leaflet",
     "map",
     "appsmith",
-    "dtu",
     "gis"
   ],
   "author": {

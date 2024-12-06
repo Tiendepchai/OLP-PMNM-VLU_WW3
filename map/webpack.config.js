@@ -6,7 +6,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.umd.js',
     library: {
-      name: 'LCDP-Map',
+      name: 'LCDP_Map',
       type: 'umd',
       export: 'default'
     },
