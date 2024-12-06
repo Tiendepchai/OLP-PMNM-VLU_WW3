@@ -52,9 +52,9 @@ npm publish
 
 ### 4. POST-PUBLISH CHECKS
 - Verify the package on npm:  
-  [https://www.npmjs.com/package/dtualsppsmithmap](https://www.npmjs.com/package/dtuappsmithmap)  
+  [https://www.npmjs.com/package/lcdp-map](https://www.npmjs.com/package/lcdp-map)  
 - Check the CDN URL:  
-  [https://cdn.jsdelivr.net/npm/dtuappsmithmap@2.1.4/dist/index.umd.js](https://cdn.jsdelivr.net/npm/dtuappsmithmap@2.1.4/dist/index.umd.js)  
+  [https://cdn.jsdelivr.net/npm/lcdp-map@1.0.0/dist/index.umd.js](https://cdn.jsdelivr.net/npm/lcdp-map@1.0.0/dist/index.umd.js)  
 - Test in Appsmith with the new URL.  
 
 ---
