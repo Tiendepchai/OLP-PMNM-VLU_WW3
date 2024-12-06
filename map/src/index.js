@@ -1,6 +1,6 @@
 import L from 'leaflet';
 
-class DTUAppsmithMap {
+class LCDP_Map {
     constructor(containerId, options = {}) {
         this.map = null;
         this.markers = [];
@@ -27,4 +27,4 @@ class DTUAppsmithMap {
 }
 
 // Đảm bảo export default
-export default DTUAppsmithMap; 
+export default LCDP_Map; 
