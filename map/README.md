@@ -1,6 +1,5 @@
 # LCDP-Map 🗺️
-
-Một thư viện wrapper cho Leaflet, được tối ưu hóa để sử dụng trong Appsmith với các chức năng tùy chỉnh.
+A wrapper library for Leaflet, optimized for use in Appsmith with custom functionalities.
 
 ### GUIDE FOR BUILDING AND PUBLISHING LCDP-MAP
 
