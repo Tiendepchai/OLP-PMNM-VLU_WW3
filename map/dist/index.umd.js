@@ -97,7 +97,7 @@
                 a()
                   .tileLayer(
                     "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                    { attribution: "© OpenStreetMap DTU DZ" }
+                    { attribution: "© OpenStreetMap VLU" }
                   )
                   .addTo(this.map);
             },
