@@ -8,10 +8,10 @@ class LCDP_Map {
     }
 
     init(containerId, options) {
-        // Khởi tạo map
+        // Initialize map
         this.map = L.map(containerId, options);
 
-        // Thêm tile layer mặc định
+        // Add default class title
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap VLU'
         }).addTo(this.map);
