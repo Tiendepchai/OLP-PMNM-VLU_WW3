@@ -28,20 +28,13 @@ LCDP-MAP/
 
 ---
 
-### 3. BUILD AND PUBLISH COMMANDS
+### 3. INSTALL DEPENDENCIES, BUILD AND RUN COMMANDS
 ```bash
-# Add and commit changes
-git add .
-git commit -m "Remove CSS import and add dynamic CSS loading"
-
-# Increment version
-npm version patch --force
+# Install dependencies
+npm install
 
 # Build package
 npm run build
-
-# Push to GitHub
-git push origin master --tags
 
 # Publish to npm
 npm publish
@@ -56,21 +49,3 @@ npm publish
   [https://cdn.jsdelivr.net/npm/lcdp-map@1.0.0/dist/index.umd.js](https://cdn.jsdelivr.net/npm/lcdp-map@1.0.0/dist/index.umd.js)  
 - Test in Appsmith with the new URL.  
 
----
-
-### 5. TROUBLESHOOTING
-- **If `npm publish` fails**: Verify `npm login`.  
-- **If `git push` fails**: Pull the latest changes before pushing.  
-- **If the build fails**: Check webpack configuration and dependencies.  
-
----
-
-### 6. IMPORTANT NOTES
-- Always check the version before publishing.  
-- Ensure thorough testing before pushing.  
-- Update `README.md` with the new version.  
-- Maintain a changelog to track updates.  
-
----
-
-### END OF GUIDE

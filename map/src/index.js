@@ -26,5 +26,5 @@ class LCDP_Map {
     }
 }
 
-// Đảm bảo export default
+// Export default
 export default LCDP_Map; 
