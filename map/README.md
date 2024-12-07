@@ -31,13 +31,10 @@ LCDP-MAP/
 ### 3. INSTALL DEPENDENCIES, BUILD AND RUN COMMANDS
 ```bash
 # Install dependencies
-npm install
+npm i lcdp-map
 
 # Build package
 npm run build
-
-# Publish to npm
-npm publish
 ```
 
 ---
