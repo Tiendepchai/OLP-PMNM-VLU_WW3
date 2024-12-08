@@ -1,4 +1,4 @@
-import L from "leaflet";
+// import L from "leaflet";
 
 class lcdp_map {
   constructor(containerId, options = {}) {
@@ -30,15 +30,7 @@ class lcdp_map {
    * @param {Object} options - Additional options for marker and popup
    * @returns {Object} marker - The created marker
    */
-  createMarker(
-    lat,
-    lng,
-    title = "",
-    content = "",
-    iconClass = "fa-map-marker-alt",
-    iconColor = "#003C71",
-    options = {}
-  ) {
+  createMarker(lat, lng, title = "", content = "", iconClass = "fa-map-marker-alt", iconColor = "#003C71", options = {}) {
     const customIcon = L.divIcon({
       html: `
         <span class="fa-stack fa-lg" style="font-size: 20px;">
@@ -74,7 +66,24 @@ class lcdp_map {
       .bindPopup(popupContent, popupOptions)
       .openPopup();
 
-    this.markers.push(marker);
+    // this.markers.push(marker);
+    return marker;
+  }
+
+  /*
+  * Add a marker to the map.
+  * @param {number} lat - Latitude of the marker
+  * @param {number} lng - Longitude of the marker
+  * @param {string} title - Title of the marker's popup
+  * @param {string} content - Content of the popup
+  * @param {string} iconClass - Font Awesome icon class for the marker (default: 'fa-map-marker-alt')
+  * @param {string} iconColor - Color for the marker icon (default: '#003C71')
+  * @param {Object} options - Additional options for marker and popup
+  * @returns {Object} marker - The created marker
+  */
+  addMarker(lat, lng, title = "", content = "", iconClass = "fa-solid fa-location-dot", iconColor = "#003C71", options = {}) {
+    const marker = this.createMarker(lat, lng, title, content, iconClass, iconColor, options);
+    this.markers.push(marker); // Store the marker for potential future removal or management
     return marker;
   }
 
@@ -86,12 +95,7 @@ class lcdp_map {
    * @param {string} content - Content for the popup
    * @returns {Object} marker - The current location marker
    */
-  updateCurrentLocation(
-    lat,
-    lng,
-    title = "Current location",
-    content = "Current location"
-  ) {
+  updateCurrentLocation(lat, lng, title = "Current location", content = "Current location") {
     if (this.currentLocation) {
       this.currentLocation.remove();
       this.markers = this.markers.filter((m) => m !== this.currentLocation);
@@ -105,41 +109,82 @@ class lcdp_map {
       "fa-solid fa-location-dot", // A unique icon for current location
       "#FF0000" // Red color for the current location
     );
-
+    this.markers.push(this.currentLocation);
     return this.currentLocation;
   }
 
   /*
-   * Calculate the distance between two geographical points (in kilometers).
-   * @param {number} lat1 - Latitude of the first point
-   * @param {number} lng1 - Longitude of the first point
-   * @param {number} lat2 - Latitude of the second point
-   * @param {number} lng2 - Longitude of the second point
-   * @returns {number} distance - The distance in kilometers, rounded to two decimal places
+   * Get the user's current GPS location and update the map with a marker.
+   * @returns {Promise<void>}
    */
+  async getCurrentLocation() {
+    if (!navigator.geolocation) {
+      console.error("Geolocation is not supported by this browser.");
+      return;
+    }
+
+    try {
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0,
+        });
+      });
+
+      const { latitude, longitude } = position.coords;
+
+      // Update current location on the map
+      this.updateCurrentLocation(latitude, longitude);
+
+      // Optionally, zoom the map to the user's location
+      this.map.setView([latitude, longitude], 13);
+
+    } catch (error) {
+      console.error("Error getting current location:", error);
+    }
+  }
+
+  /*
+  * Calculate the distance between two geographical points (in kilometers).
+  * Uses the Haversine formula to account for the curvature of the Earth.
+  * @param {number} lat1 - Latitude of the first point
+  * @param {number} lng1 - Longitude of the first point
+  * @param {number} lat2 - Latitude of the second point
+  * @param {number} lng2 - Longitude of the second point
+  * @returns {number} distance - The distance in kilometers, rounded to two decimal places
+  */
   calculateDistance(lat1, lng1, lat2, lng2) {
-    const R = 6371; // Earth's radius in kilometers
+    const R = 6371; // Radius of the Earth in kilometers
+
+    // Convert degrees to radians
     const dLat = this.toRad(lat2 - lat1);
     const dLng = this.toRad(lng2 - lng1);
 
+    // Convert input coordinates to radians
+    const radLat1 = this.toRad(lat1);
+    const radLat2 = this.toRad(lat2);
+
+    // Apply the Haversine formula
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(this.toRad(lat1)) *
-        Math.cos(this.toRad(lat2)) *
-        Math.sin(dLng / 2) *
-        Math.sin(dLng / 2);
+      Math.cos(radLat1) * Math.cos(radLat2) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    // Distance in kilometers
     const distance = R * c;
 
+    // Return the distance rounded to two decimal places
     return Math.round(distance * 100) / 100;
   }
 
   /*
-   * Convert degrees to radians.
-   * @private
-   * @param {number} degrees
-   * @returns {number} radians
-   */
+  * Convert degrees to radians.
+  * @private
+  * @param {number} degrees - Degrees to convert
+  * @returns {number} radians - Converted value in radians
+  */
   toRad(degrees) {
     return (degrees * Math.PI) / 180;
   }
@@ -173,20 +218,88 @@ class lcdp_map {
         throw new Error("Could not find a route");
       }
 
+      // Get route coordinates from response
       const coordinates = data.routes[0].geometry.coordinates;
-      const latlngs = coordinates.map((coord) => [coord[1], coord[0]]);
+          
+      // Convert [lng, lat] to [lat, lng] for Leaflet
+      const latlngs = coordinates.map(coord => [coord[1], coord[0]]);
 
-      // Remove any existing routes
+      // Delete old lines, marker
       this.clearRoutes();
 
-      // Draw the new route
+      // Draw
       const polyline = L.polyline(latlngs, defaultOptions).addTo(this.map);
+      
+      // Added management section
       this.polylines.push(polyline);
 
-      // Adjust the map zoom level to fit the polyline bounds
+      // Automatically zooms to show the entire road
       this.map.fitBounds(polyline.getBounds(), {
-        padding: [50, 50],
+          padding: [50, 50]
       });
+      return polyline;
+    } catch (error) {
+      console.error("Error drawing route:", error);
+      return null;
+    }
+  }
+
+  /*
+   * Draw a polyline between two points (latitude, longitude).
+   * @param {number} lat_des - Latitude of the first point
+   * @param {number} lng_des - Longitude of the first point
+   * @param {Object} options - Optional parameters for the polyline
+   * @returns {Promise} polyline - The created polyline
+   */
+  async current_to_marker(lat_des, lng_des,options = {}) {
+    const defaultOptions = {
+      color: "#003C71", // Default color
+      weight: 3, // Line thickness
+      opacity: 0.8, // Line opacity
+      dashArray: null, // Dashes (null = solid line)
+      ...options,
+    };
+
+    try {
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0,
+        });
+      });
+
+      const { latitude, longitude } = position.coords;
+      // Request route data from OSRM API
+      const response = await fetch(
+        `https://router.project-osrm.org/route/v1/driving/${longitude},${latitude};${lng_des},${lat_des}?overview=full&geometries=geojson`
+      );
+      const data = await response.json();
+
+      if (data.code !== "Ok" || !data.routes.length) {
+        throw new Error("Could not find a route");
+      }
+
+      // Get route coordinates from response
+      const coordinates = data.routes[0].geometry.coordinates;
+            
+      // Convert [lng, lat] to [lat, lng] for Leaflet
+      const latlngs = coordinates.map(coord => [coord[1], coord[0]]);
+
+      // Delete old lines, marker
+      this.clearRoutes();
+
+      // Draw
+      const polyline = L.polyline(latlngs, defaultOptions).addTo(this.map);
+      
+      // Added management section
+      this.polylines.push(polyline);
+
+      // Automatically zooms to show the entire road
+      this.map.fitBounds(polyline.getBounds(), {
+          padding: [50, 50]
+      });
+
 
       return polyline;
     } catch (error) {
@@ -203,6 +316,16 @@ class lcdp_map {
       polyline.remove();
     });
     this.polylines = [];
+  }
+
+  /*
+  * Remove all markers from the map.
+  */
+  clearMarkers() {
+    this.markers.forEach((marker) => {
+      marker.remove();
+    });
+    this.markers = [];
   }
 
   /*
@@ -261,6 +384,54 @@ class lcdp_map {
     }
 
     return null;
+  }
+  /*
+  * Find the nearest marker to a given latitude and longitude.
+  * @param {number} lat - Latitude of the reference point
+  * @param {number} lng - Longitude of the reference point
+  * @returns {Object|null} nearestMarker - The nearest marker object or null if no markers are present
+ */
+  async findNearestMarkerfromcurr(options = {}) {
+    if (this.markers.length === 0) {
+      console.log("No markers available to check.");
+      return null;
+    }
+
+    try {
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0,
+        });
+      });
+      const { lat, lng} = position.coords;
+
+      let nearestMarker = this.markers[1];
+      let shortestDistance = Infinity;
+
+      // Loop through all markers and calculate the distance to each one
+      console.log(this.markers.length, '\n---\n');
+      for (let i = 1; i < this.markers.length; i++) {
+        console.log(i);
+        const markerLat = this.markers[i]._latlng.lat;
+        const markerLng = this.markers[i]._latlng.lng;
+        const distance = this.calculateDistance(lat, lng, markerLat, markerLng); // Use your existing method to calculate distance
+        
+        if (distance < shortestDistance) {
+          shortestDistance = distance;
+          nearestMarker = this.markers[i]; // Update nearest marker
+        }
+      } 
+      const Lat = nearestMarker._latlng.lat;
+      const Lng = nearestMarker._latlng.lng;
+      this.current_to_marker(Lat, Lng, options);
+      return null;
+    }
+    catch (error) {
+      console.error("Error drawing route:", error);
+      return null;
+    }
   }
 }
 

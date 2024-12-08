@@ -90,3 +90,7 @@ docs/
 coverage/
 .husky/
 .vscode/
+
+# test function
+
+map-test.html
