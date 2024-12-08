@@ -385,54 +385,6 @@ class lcdp_map {
 
     return null;
   }
-  /*
-  * Find the nearest marker to a given latitude and longitude.
-  * @param {number} lat - Latitude of the reference point
-  * @param {number} lng - Longitude of the reference point
-  * @returns {Object|null} nearestMarker - The nearest marker object or null if no markers are present
- */
-  async findNearestMarkerfromcurr(options = {}) {
-    if (this.markers.length === 0) {
-      console.log("No markers available to check.");
-      return null;
-    }
-
-    try {
-      const position = await new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject, {
-          enableHighAccuracy: true,
-          timeout: 5000,
-          maximumAge: 0,
-        });
-      });
-      const { lat, lng} = position.coords;
-
-      let nearestMarker = this.markers[1];
-      let shortestDistance = Infinity;
-
-      // Loop through all markers and calculate the distance to each one
-      console.log(this.markers.length, '\n---\n');
-      for (let i = 1; i < this.markers.length; i++) {
-        console.log(i);
-        const markerLat = this.markers[i]._latlng.lat;
-        const markerLng = this.markers[i]._latlng.lng;
-        const distance = this.calculateDistance(lat, lng, markerLat, markerLng); // Use your existing method to calculate distance
-        
-        if (distance < shortestDistance) {
-          shortestDistance = distance;
-          nearestMarker = this.markers[i]; // Update nearest marker
-        }
-      } 
-      const Lat = nearestMarker._latlng.lat;
-      const Lng = nearestMarker._latlng.lng;
-      this.current_to_marker(Lat, Lng, options);
-      return null;
-    }
-    catch (error) {
-      console.error("Error drawing route:", error);
-      return null;
-    }
-  }
 }
 
 export default lcdp_map;
